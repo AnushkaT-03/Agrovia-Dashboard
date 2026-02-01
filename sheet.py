@@ -76,7 +76,7 @@ st.markdown(
 # ─── Load data with better loading feedback ────────────
 @st.cache_data
 def load_data():
-    path = r"C:\Users\anush\OneDrive\Desktop\Agrovia\Sheet2.xlsx"
+    path = "Sheet2.xlsx"    
     with st.spinner("Reading responses & preparing insights... 🥕📈"):
         time.sleep(0.7)  # pleasant micro-delay
         try:
