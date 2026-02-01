@@ -12,252 +12,272 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ─── Enhanced Custom CSS ───────────────────────────────
+# ─── Clean & Interactive CSS ───────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 * {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Smooth animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+.animated { animation: fadeIn 0.6s ease-out; }
+.slide-in { animation: slideIn 0.5s ease-out; }
+
+/* Clean background */
+.stApp {
+    background: linear-gradient(135deg, #f8fdf9 0%, #ffffff 100%);
 }
 
-@keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.slide-in-left {
-  animation: slideInLeft 0.6s ease-out forwards;
-}
-
+/* KPI Cards - Clean & Modern */
 .kpi-card {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  position: relative;
-  overflow: hidden;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-.kpi-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.5s;
-}
-
-.kpi-card:hover::before {
-  left: 100%;
+.kpi-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4caf50, #81c784);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
 }
 
 .kpi-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(76, 175, 80, 0.2);
+    border-color: #4caf50;
 }
 
-.pulse-once {
-  animation: pulse 1.8s ease-in-out;
+.kpi-card:hover::after {
+    transform: scaleX(1);
 }
 
-.section-header {
-  color: #1b5e20;
-  font-size: 1.95rem !important;
-  margin: 2.5rem 0 1.2rem 0 !important;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  position: relative;
-  padding-left: 16px;
+/* Section headers - Clean style */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin: 3rem 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
-.section-header::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 5px;
-  height: 70%;
-  background: linear-gradient(180deg, #4caf50, #1b5e20);
-  border-radius: 3px;
+.section-title::before {
+    content: '';
+    width: 6px;
+    height: 40px;
+    background: linear-gradient(180deg, #4caf50, #2e7d32);
+    border-radius: 10px;
 }
 
-.main-title {
-  background: linear-gradient(135deg, #1b5e20 0%, #4caf50 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+/* Chart containers - Clean white cards */
+.chart-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    margin-bottom: 2rem;
 }
 
-.subtitle {
-  background: linear-gradient(90deg, #666 0%, #999 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 500;
+.chart-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
 }
 
-.metric-container {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  border: 1px solid rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+/* Sidebar styling */
+.css-1d391kg, [data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #f1f8f4 0%, #ffffff 100%);
 }
 
-.metric-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+.sidebar-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #2e7d32;
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #4caf50;
 }
 
+/* Improved multiselect */
+.stMultiSelect [data-baseweb="select"] {
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.stMultiSelect [data-baseweb="select"]:hover {
+    border-color: #4caf50;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+}
+
+/* Button styling */
 .stButton>button {
-  border-radius: 12px !important;
-  font-weight: 600 !important;
-  transition: all 0.3s ease !important;
-  border: 2px solid transparent !important;
+    border-radius: 14px !important;
+    padding: 0.75rem 2rem !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2) !important;
+    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%) !important;
+    border: none !important;
 }
 
 .stButton>button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3) !important;
 }
 
-.sidebar .stMultiSelect {
-  margin-bottom: 1.5rem;
+/* Main title */
+.main-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1b5e20 0%, #4caf50 50%, #81c784 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
 }
 
-.sidebar .element-container {
-  animation: slideInLeft 0.5s ease-out;
+.subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 3rem;
 }
 
-/* Plotly chart containers */
-.js-plotly-plot {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+/* Metric text styling */
+.metric-value {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin: 1rem 0;
 }
 
-/* Custom scrollbar */
+.metric-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-sublabel {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 0.5rem;
+}
+
+/* Badge styling */
+.info-badge {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: white;
+    border: 2px solid #4caf50;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2e7d32;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+}
+
+/* Divider */
+.clean-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+    margin: 3rem 0;
+    border: none;
+}
+
+/* Sidebar stat card */
+.sidebar-stat {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.15);
+    border: 2px solid #4caf50;
+    margin-top: 2rem;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+    width: 12px;
+    height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
+    background: #f5f5f5;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #4caf50, #1b5e20);
-  border-radius: 10px;
+    background: linear-gradient(180deg, #4caf50, #2e7d32);
+    border-radius: 10px;
+    border: 2px solid #f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #45a049, #145214);
+    background: linear-gradient(180deg, #66bb6a, #1b5e20);
 }
 
-.divider-fancy {
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #4caf50, transparent);
-  border: none;
-  margin: 2rem 0;
-  border-radius: 2px;
+/* Remove default streamlit padding */
+.block-container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
-.info-badge {
-  display: inline-block;
-  padding: 0.4rem 0.9rem;
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #1b5e20;
-  margin: 0.3rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-
-.chart-container {
-  background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.04);
-}
-
-.chart-container:hover {
-  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
-  transform: translateY(-2px);
+/* Plotly charts clean background */
+.js-plotly-plot {
+    border-radius: 16px;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ─── Enhanced Header ───────────────────────────────────
-st.markdown(
-    '<h1 style="text-align:center; margin-bottom:0.3rem;" class="pulse-once main-title">'
-    '🥬 Vegetable Consumer Survey Dashboard</h1>',
-    unsafe_allow_html=True
-)
+# ─── Header ────────────────────────────────────────────
+st.markdown('<h1 class="main-title animated">🥬 Vegetable Consumer Survey</h1>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle animated">Comprehensive insights into buying habits, price sensitivity, and trust factors</p>', unsafe_allow_html=True)
 
-st.markdown(
-    '<p style="text-align:center; font-size:1.2rem; margin-top:0;" class="fade-in-up subtitle">'
-    'Buying habits • Price sensitivity • Trust • Traceability interest</p>',
-    unsafe_allow_html=True
-)
-
-st.markdown('<hr class="divider-fancy">', unsafe_allow_html=True)
-
-# ─── Load data with better loading feedback ────────────
+# ─── Load data ─────────────────────────────────────────
 @st.cache_data
 def load_data():
     path = "Sheet2.xlsx"    
-    with st.spinner("🔄 Reading responses & preparing insights... 🥕📈"):
-        time.sleep(0.7)  # pleasant micro-delay
+    with st.spinner("📊 Loading survey data..."):
+        time.sleep(0.5)
         try:
             df = pd.read_excel(path)
         except Exception as e:
-            st.error(f"❌ Cannot read file\n{str(e)}")
+            st.error(f"❌ Error reading file: {str(e)}")
             st.stop()
 
-    # ── renaming logic same as before ──────────────────
     rename = {}
     for c in df.columns:
         low = str(c).lower().strip()
@@ -276,7 +296,7 @@ def load_data():
             "Willing_Premium","Traceability_Interest","Source_Importance","Trial_Intent"]
     existing = [c for c in keep if c in df.columns]
     if not existing:
-        st.error("❌ No expected columns found. Check Excel column names.")
+        st.error("❌ No expected columns found. Check Excel file.")
         st.stop()
 
     df = df[existing].copy()
@@ -295,41 +315,33 @@ def load_data():
 
     return df
 
-
 df = load_data()
 
-# ─── Enhanced Sidebar ──────────────────────────────────
+# ─── Sidebar ───────────────────────────────────────────
 with st.sidebar:
-    st.markdown(
-        '<div style="text-align:center; padding: 1rem 0 1.5rem 0;">'
-        '<h2 style="color:#1b5e20; margin:0; font-size: 2rem;">🎛️ Filters</h2>'
-        '</div>', 
-        unsafe_allow_html=True
-    )
-    
-    st.markdown('<div class="slide-in-left">', unsafe_allow_html=True)
+    st.markdown('<div class="sidebar-title slide-in">🎛️ Filters</div>', unsafe_allow_html=True)
     
     freq_opts = sorted(df["Purchase_Frequency"].dropna().astype(str).unique()) if "Purchase_Frequency" in df else []
-    freq_sel = st.multiselect("📊 Purchase Frequency", freq_opts, default=freq_opts)
+    freq_sel = st.multiselect("📊 Purchase Frequency", freq_opts, default=freq_opts, key="freq")
 
     src_opts = sorted(df["Purchase_Source"].dropna().astype(str).unique()) if "Purchase_Source" in df else []
-    src_sel = st.multiselect("🏪 Purchase Source", src_opts, default=src_opts)
+    src_sel = st.multiselect("🏪 Purchase Source", src_opts, default=src_opts, key="src")
 
-    st.markdown('</div>', unsafe_allow_html=True)
-    
     st.markdown("<br>", unsafe_allow_html=True)
     
-    if st.button("🔄 Reset all filters", type="primary", use_container_width=True):
-        st.rerun()
-    
-    st.markdown("<br>"*2, unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("🔄 Reset", use_container_width=True):
+            st.rerun()
+    with col2:
+        apply_btn = st.button("✅ Apply", type="primary", use_container_width=True)
     
     # Sidebar stats
     st.markdown(
-        '<div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); '
-        'padding: 1rem; border-radius: 12px; margin-top: 1rem;">'
-        f'<p style="margin:0; color: #1b5e20; font-weight: 600; text-align: center;">'
-        f'📈 Total Responses<br><span style="font-size: 2rem; font-weight: 700;">{len(df)}</span></p>'
+        '<div class="sidebar-stat">'
+        '<div style="font-size: 0.9rem; color: #666; font-weight: 600; margin-bottom: 0.5rem;">TOTAL RESPONSES</div>'
+        f'<div style="font-size: 2.5rem; font-weight: 800; color: #2e7d32;">{len(df)}</div>'
+        '<div style="font-size: 0.8rem; color: #999; margin-top: 0.3rem;">Survey participants</div>'
         '</div>',
         unsafe_allow_html=True
     )
@@ -339,11 +351,15 @@ f_df = df.copy()
 if freq_sel: f_df = f_df[f_df["Purchase_Frequency"].isin(freq_sel)]
 if src_sel:  f_df = f_df[f_df["Purchase_Source"].isin(src_sel)]
 
-# ─── Enhanced KPIs ─────────────────────────────────────
-st.markdown('<div class="fade-in-up">', unsafe_allow_html=True)
-st.markdown('<h2 class="section-header">🎯 Key Highlights</h2>', unsafe_allow_html=True)
+# Show filter status
+if len(f_df) < len(df):
+    st.info(f"📌 Showing {len(f_df)} of {len(df)} responses based on your filters")
 
-cols = st.columns(4, gap="medium")
+# ─── KPIs ──────────────────────────────────────────────
+st.markdown('<div class="animated">', unsafe_allow_html=True)
+st.markdown('<h2 class="section-title">🎯 Key Performance Indicators</h2>', unsafe_allow_html=True)
+
+cols = st.columns(4, gap="large")
 
 n = len(f_df)
 
@@ -351,219 +367,268 @@ p_prem = round(100 * (f_df["Willing_Premium"]     == "Yes").mean(), 1) if n > 0 
 p_trac = round(100 * (f_df["Traceability_Interest"] == "Yes").mean(), 1) if n > 0 and "Traceability_Interest" in f_df else 0
 p_try  = round(100 * (f_df["Trial_Intent"]         == "Yes").mean(), 1) if n > 0 and "Trial_Intent"        in f_df else 0
 
-def kpi_style(pct):
-    if pct >= 70: 
-        bg = "linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%)"
-        clr = "#1b5e20"
-        icon = "🟢"
-    elif pct >= 45: 
-        bg = "linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%)"
-        clr = "#f57f17"
-        icon = "🟡"
-    else: 
-        bg = "linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%)"
-        clr = "#c62828"
-        icon = "🔴"
-    return bg, clr, icon
+def get_color(pct):
+    if pct >= 70: return "#2e7d32", "🟢"
+    elif pct >= 45: return "#f57f17", "🟡"
+    else: return "#c62828", "🔴"
 
 with cols[0]:
     st.markdown(
-        '<div class="metric-container fade-in-up" style="text-align:center">'
-        f'<div style="font-size:3rem; margin-bottom: 0.5rem;">📊</div>'
-        f'<div style="font-size:1.1rem; color:#666; font-weight:600">Total Responses</div>'
-        f'<div style="font-size:3rem; font-weight:800; color:#1b5e20; margin-top:0.5rem">{n:,}</div>'
-        '</div>', 
+        '<div class="kpi-card">'
+        '<div style="text-align:center">'
+        '<div style="font-size:3.5rem; margin-bottom: 0.8rem;">📊</div>'
+        '<div class="metric-label">Active Filters</div>'
+        f'<div class="metric-value" style="color:#2e7d32">{n:,}</div>'
+        '<div class="metric-sublabel">Responses</div>'
+        '</div></div>', 
         unsafe_allow_html=True
     )
 
 with cols[1]:
-    bg, clr, icon = kpi_style(p_prem)
+    clr, icon = get_color(p_prem)
     st.markdown(
-        f'<div class="kpi-card fade-in-up" style="background:{bg};padding:1.6rem 1.2rem;text-align:center">'
-        f'<div style="font-size:2.5rem; margin-bottom:0.5rem">{icon}</div>'
-        f'<div style="font-size:1.05rem; color:{clr}; opacity:0.85; font-weight:600">Willing to Pay More</div>'
-        f'<div style="font-size:3.2rem;font-weight:800;margin:0.6rem 0; color:{clr}">{p_prem}%</div>'
-        f'<div style="font-size:0.85rem; color:{clr}; opacity:0.7">Premium Products</div>'
-        f'</div>', 
+        '<div class="kpi-card">'
+        '<div style="text-align:center">'
+        f'<div style="font-size:3rem; margin-bottom:0.5rem">{icon}</div>'
+        '<div class="metric-label">Premium Willingness</div>'
+        f'<div class="metric-value" style="color:{clr}">{p_prem}%</div>'
+        '<div class="metric-sublabel">Pay more for quality</div>'
+        '</div></div>', 
         unsafe_allow_html=True
     )
 
 with cols[2]:
-    bg, clr, icon = kpi_style(p_trac)
+    clr, icon = get_color(p_trac)
     st.markdown(
-        f'<div class="kpi-card fade-in-up" style="background:{bg};padding:1.6rem 1.2rem;text-align:center">'
-        f'<div style="font-size:2.5rem; margin-bottom:0.5rem">{icon}</div>'
-        f'<div style="font-size:1.05rem; color:{clr}; opacity:0.85; font-weight:600">Want Traceability</div>'
-        f'<div style="font-size:3.2rem;font-weight:800;margin:0.6rem 0; color:{clr}">{p_trac}%</div>'
-        f'<div style="font-size:0.85rem; color:{clr}; opacity:0.7">Track Farm Source</div>'
-        f'</div>', 
+        '<div class="kpi-card">'
+        '<div style="text-align:center">'
+        f'<div style="font-size:3rem; margin-bottom:0.5rem">{icon}</div>'
+        '<div class="metric-label">Traceability Interest</div>'
+        f'<div class="metric-value" style="color:{clr}">{p_trac}%</div>'
+        '<div class="metric-sublabel">Want source tracking</div>'
+        '</div></div>', 
         unsafe_allow_html=True
     )
 
 with cols[3]:
-    bg, clr, icon = kpi_style(p_try)
+    clr, icon = get_color(p_try)
     st.markdown(
-        f'<div class="kpi-card fade-in-up" style="background:{bg};padding:1.6rem 1.2rem;text-align:center">'
-        f'<div style="font-size:2.5rem; margin-bottom:0.5rem">{icon}</div>'
-        f'<div style="font-size:1.05rem; color:{clr}; opacity:0.85; font-weight:600">Would Try Service</div>'
-        f'<div style="font-size:3.2rem;font-weight:800;margin:0.6rem 0; color:{clr}">{p_try}%</div>'
-        f'<div style="font-size:0.85rem; color:{clr}; opacity:0.7">New Platform Intent</div>'
-        f'</div>', 
+        '<div class="kpi-card">'
+        '<div style="text-align:center">'
+        f'<div style="font-size:3rem; margin-bottom:0.5rem">{icon}</div>'
+        '<div class="metric-label">Trial Intent</div>'
+        f'<div class="metric-value" style="color:{clr}">{p_try}%</div>'
+        '<div class="metric-sublabel">Would try new service</div>'
+        '</div></div>', 
         unsafe_allow_html=True
     )
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-# ─── Enhanced Charts section ───────────────────────────
-st.markdown('<div class="fade-in-up">', unsafe_allow_html=True)
-st.markdown('<hr class="divider-fancy">', unsafe_allow_html=True)
+# ─── Charts Row 1 ──────────────────────────────────────
+st.markdown('<hr class="clean-divider">', unsafe_allow_html=True)
+st.markdown('<h2 class="section-title">📈 Purchase Patterns</h2>', unsafe_allow_html=True)
 
-colA, colB = st.columns(2, gap="large")
+col1, col2 = st.columns(2, gap="large")
 
-with colA:
+with col1:
     if "Purchase_Frequency" in f_df and not f_df.empty:
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+        st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+        
         fig = px.pie(
-            f_df, names="Purchase_Frequency",
-            hole=0.5,
-            title="<b>Purchase Frequency</b>",
-            color_discrete_sequence=px.colors.qualitative.G10,
+            f_df, 
+            names="Purchase_Frequency",
+            hole=0.55,
+            color_discrete_sequence=['#1b5e20', '#2e7d32', '#388e3c', '#4caf50', '#66bb6a', '#81c784']
         )
+        
         fig.update_traces(
-            textposition='inside', 
+            textposition='outside',
             textinfo='percent+label',
-            textfont_size=13,
-            marker=dict(line=dict(color='white', width=3))
+            textfont_size=14,
+            marker=dict(line=dict(color='white', width=4)),
+            pull=[0.05] * len(f_df["Purchase_Frequency"].unique())
         )
+        
         fig.update_layout(
-            title_font_size=22,
-            title_font_color="#1b5e20",
-            title_font_family="Inter",
-            margin=dict(t=80, b=40),
+            showlegend=True,
             legend=dict(
-                orientation="h", 
-                yanchor="bottom", 
-                y=-0.15, 
-                xanchor="center", 
-                x=0.5,
-                font=dict(size=12)
+                orientation="v",
+                yanchor="middle",
+                y=0.5,
+                xanchor="left",
+                x=1.05,
+                font=dict(size=13)
             ),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
-        )
-        st.plotly_chart(fig, use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-with colB:
-    if "Purchase_Source" in f_df and not f_df.empty:
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        fig = px.bar(
-            f_df["Purchase_Source"].value_counts().reset_index(),
-            x="count", y="Purchase_Source",
-            orientation="h",
-            title="<b>Main Purchase Channels</b>",
-            color="count",
-            color_continuous_scale=["#c8e6c9", "#66bb6a", "#2e7d32", "#1b5e20"]
-        )
-        fig.update_traces(
-            marker_line_color='white',
-            marker_line_width=2
-        )
-        fig.update_layout(
-            showlegend=False,
-            title_font_size=22,
-            title_font_color="#1b5e20",
-            title_font_family="Inter",
-            margin=dict(t=80, b=40),
-            xaxis_title="<b>Responses</b>",
-            yaxis_title="",
+            margin=dict(t=40, b=40, l=40, r=160),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
-            xaxis=dict(gridcolor='rgba(0,0,0,0.05)'),
-            yaxis=dict(gridcolor='rgba(0,0,0,0.05)')
+            annotations=[dict(
+                text=f'<b>{n}</b><br>responses',
+                x=0.5, y=0.5,
+                font_size=18,
+                showarrow=False,
+                font=dict(color='#2e7d32')
+            )]
         )
-        st.plotly_chart(fig, use_container_width=True)
+        
+        st.markdown('<h3 style="color:#2e7d32; font-size:1.4rem; margin-bottom:1rem; font-weight:700">Purchase Frequency Distribution</h3>', unsafe_allow_html=True)
+        st.plotly_chart(fig, use_container_width=True, key="freq_chart")
         st.markdown('</div>', unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
+with col2:
+    if "Purchase_Source" in f_df and not f_df.empty:
+        st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+        
+        source_data = f_df["Purchase_Source"].value_counts().reset_index()
+        source_data.columns = ['Source', 'Count']
+        
+        fig = px.bar(
+            source_data,
+            x="Count",
+            y="Source",
+            orientation="h",
+            text="Count",
+            color="Count",
+            color_continuous_scale=['#c8e6c9', '#81c784', '#4caf50', '#2e7d32', '#1b5e20']
+        )
+        
+        fig.update_traces(
+            textposition='outside',
+            textfont_size=14,
+            marker_line_color='white',
+            marker_line_width=3,
+            hovertemplate='<b>%{y}</b><br>Count: %{x}<extra></extra>'
+        )
+        
+        fig.update_layout(
+            showlegend=False,
+            margin=dict(t=40, b=40, l=20, r=80),
+            xaxis=dict(
+                title="Number of Responses",
+                gridcolor='rgba(0,0,0,0.05)',
+                showgrid=True
+            ),
+            yaxis=dict(
+                title="",
+                categoryorder='total ascending'
+            ),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(size=13)
+        )
+        
+        st.markdown('<h3 style="color:#2e7d32; font-size:1.4rem; margin-bottom:1rem; font-weight:700">Main Purchase Channels</h3>', unsafe_allow_html=True)
+        st.plotly_chart(fig, use_container_width=True, key="source_chart")
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# ─── Decision factors ──────────────────────────────────
-st.markdown('<h2 class="section-header fade-in-up">💡 What matters most when buying vegetables</h2>', unsafe_allow_html=True)
-st.markdown(
-    '<p class="info-badge">📌 Multiple answers possible — count of mentions</p>',
-    unsafe_allow_html=True
-)
+# ─── Decision Factors ──────────────────────────────────
+st.markdown('<hr class="clean-divider">', unsafe_allow_html=True)
+st.markdown('<h2 class="section-title">💡 Decision Factors Analysis</h2>', unsafe_allow_html=True)
+st.markdown('<span class="info-badge">📌 Multiple selections allowed per respondent</span>', unsafe_allow_html=True)
+st.markdown("<br><br>", unsafe_allow_html=True)
 
 if "Decision_Factors" in f_df:
-    st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+    st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+    
     keywords = ["Price", "Freshness", "Quality", "Trust", "Convenience", "Local", "Organic", "Packaging"]
     counts = {k: f_df["Decision_Factors"].str.contains(k, case=False, na=False).sum() for k in keywords}
-    df_count = pd.DataFrame(counts.items(), columns=["Factor","Count"]).sort_values("Count", ascending=False)
-
-    fig = px.bar(
-        df_count, x="Count", y="Factor",
-        orientation="h", text="Count",
-        color="Count", 
-        color_continuous_scale=["#fff9c4", "#ffeb3b", "#fdd835", "#f9a825", "#f57f17"]
-    )
-    fig.update_traces(
-        textposition="outside",
-        textfont_size=14,
-        marker_line_color='white',
-        marker_line_width=2
-    )
+    df_count = pd.DataFrame(counts.items(), columns=["Factor","Count"]).sort_values("Count", ascending=True)
+    
+    fig = go.Figure()
+    
+    colors = ['#fff59d', '#ffee58', '#fdd835', '#fbc02d', '#f9a825', '#f57f17', '#e65100', '#bf360c']
+    
+    fig.add_trace(go.Bar(
+        x=df_count["Count"],
+        y=df_count["Factor"],
+        orientation='h',
+        text=df_count["Count"],
+        textposition='outside',
+        textfont=dict(size=15, color='#2e7d32', weight='bold'),
+        marker=dict(
+            color=df_count["Count"],
+            colorscale=[[0, colors[0]], [1, colors[-1]]],
+            line=dict(color='white', width=3)
+        ),
+        hovertemplate='<b>%{y}</b><br>Mentions: %{x}<extra></extra>'
+    ))
+    
     fig.update_layout(
-        margin=dict(t=30, b=30, l=20, r=80), 
-        coloraxis_showscale=False,
-        xaxis=dict(gridcolor='rgba(0,0,0,0.05)'),
-        yaxis=dict(gridcolor='rgba(0,0,0,0.05)'),
+        margin=dict(t=20, b=20, l=20, r=100),
+        xaxis=dict(
+            title="<b>Number of Mentions</b>",
+            gridcolor='rgba(0,0,0,0.05)',
+            showgrid=True
+        ),
+        yaxis=dict(title=""),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        font=dict(size=13)
+        font=dict(size=14),
+        height=450
     )
-    st.plotly_chart(fig, use_container_width=True)
+    
+    st.plotly_chart(fig, use_container_width=True, key="factors_chart")
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ─── Trust × Premium ───────────────────────────────────
+# ─── Trust Analysis ────────────────────────────────────
 if all(c in f_df for c in ["Source_Importance", "Willing_Premium"]):
-    st.markdown('<h2 class="section-header fade-in-up">🤝 Source importance vs Willingness to pay premium</h2>', unsafe_allow_html=True)
+    st.markdown('<hr class="clean-divider">', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-title">🤝 Trust vs. Premium Willingness</h2>', unsafe_allow_html=True)
     
-    st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+    st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+    
     fig = px.histogram(
         f_df,
         x="Source_Importance",
         color="Willing_Premium",
         barmode="group",
-        color_discrete_sequence=["#66bb6a", "#ffb74d", "#ef5350"],
+        color_discrete_map={
+            "Yes": "#4caf50",
+            "Maybe": "#ffa726",
+            "No": "#ef5350"
+        },
         category_orders={"Willing_Premium": ["Yes","Maybe","No"]}
     )
+    
     fig.update_traces(
         marker_line_color='white',
-        marker_line_width=2
+        marker_line_width=3,
+        opacity=0.9
     )
+    
     fig.update_layout(
-        legend_title_text="<b>Willing to pay more?</b>",
         legend=dict(
+            title="<b>Pay Premium?</b>",
             orientation="h",
             yanchor="bottom",
             y=1.02,
-            xanchor="right",
-            x=1
+            xanchor="center",
+            x=0.5,
+            font=dict(size=13)
         ),
-        xaxis=dict(gridcolor='rgba(0,0,0,0.05)', title="<b>Source Importance</b>"),
-        yaxis=dict(gridcolor='rgba(0,0,0,0.05)', title="<b>Count</b>"),
+        xaxis=dict(
+            title="<b>Source Importance Rating</b>",
+            gridcolor='rgba(0,0,0,0.05)'
+        ),
+        yaxis=dict(
+            title="<b>Number of Responses</b>",
+            gridcolor='rgba(0,0,0,0.05)'
+        ),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         font=dict(size=13),
-        margin=dict(t=60, b=40)
+        margin=dict(t=80, b=60, l=60, r=40),
+        height=500
     )
-    st.plotly_chart(fig, use_container_width=True)
+    
+    st.plotly_chart(fig, use_container_width=True, key="trust_chart")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ─── Footer ────────────────────────────────────────────
-st.markdown('<hr class="divider-fancy">', unsafe_allow_html=True)
+st.markdown('<hr class="clean-divider">', unsafe_allow_html=True)
 st.markdown(
-    f'<p style="text-align:center; color:#999; font-size:0.9rem; padding: 1rem 0;">'
-    f'Dashboard powered by Streamlit 📊 • Last updated: {pd.Timestamp.now().strftime("%Y-%m-%d %H:%M")}</p>',
+    f'<p style="text-align:center; color:#999; font-size:0.95rem; padding: 1.5rem 0;">'
+    f'✨ Built with Streamlit • Last updated: {pd.Timestamp.now().strftime("%B %d, %Y at %H:%M")}</p>',
     unsafe_allow_html=True
 )
